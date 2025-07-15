@@ -1,4 +1,4 @@
-name: Build and Push Backend Image
+name: Build and Push frontend Image
 
 on:
   push:   # 🔄 수정된 부분!
@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  build-and-push-backend:
+  build-and-push-frontend:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,17 +27,18 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Build and Push boards-service
+    - name: Build and Push Frontend Image
       env:
         TAG: ${{ github.run_number }}
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
       run: |
-        IMAGE=$ECR_REGISTRY/Frontend:${TAG}
-        docker build -t $IMAGE -f boards/Dockerfile ./boards
+        IMAGE=$ECR_REGISTRY/frontend:${TAG}
+        docker build -t $IMAGE -f Dockerfile .
         docker push $IMAGE
+    
 
 
-
+    
     #- name: Trigger Jenkins to update values.yaml
       #run: |
         #curl -X POST "http://54.180.232.0:8080/generic-webhook-trigger/invoke?token=gha-trigger-token"

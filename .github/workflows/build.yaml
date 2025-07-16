@@ -1,7 +1,7 @@
 name: Build and Push frontend Image
 
 on:
-  push:   # 🔄 수정된 부분!
+  push:
     branches:
       - main
 

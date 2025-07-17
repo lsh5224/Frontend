@@ -1,7 +1,5 @@
 name: Build and Push frontend Image
 
-
-
 on:
   push:
     branches:
